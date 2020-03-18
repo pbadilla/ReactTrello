@@ -1,0 +1,21 @@
+.dragging {
+  display: none;
+}
+
+.drop-preview {
+  background-color: $transparent-black-20 !important;
+  & > * {
+    visibility: hidden;
+  }
+}
+
+#dragging-layer {
+  cursor: grabbing;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  position: fixed;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+}
