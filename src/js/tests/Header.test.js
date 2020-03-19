@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
 import React from 'react';
-import { createStore} from 'redux';
+import { createStore } from 'redux';
 import { Router, Provider } from 'react-router-dom';
+import configureMockStore from 'redux-mock-store';
 import { createMemoryHistory } from 'history';
 import { cleanup, fireEvent, render } from '@testing-library/react';
 
 import Header from '../components/Header/Header';
-import boardsReducer from '../redux/reducers/boardsReducer';
 
 afterEach(cleanup);
 
@@ -19,11 +19,12 @@ const props = {
   exists: false,
 };
 
-const store = createStore(boardsReducer, initialState);
+const mockStore = (state = initialState) => configureMockStore()(state);
+
 const history = createMemoryHistory();
 
 const RoutedComponent = (
-  <Provider store={store}>
+  <Provider store ={mockStore}>
     <Router history={history}>
       <Header {...props} />
     </Router>
@@ -38,21 +39,3 @@ describe('Header Component', () => {
     expect(getByTestId('header')).toBeInTheDocument();
   });
 });
-
-
-
-{/* <HeaderBase id="header" data-testId='header'>
-<Content>
-  <Columns>
-    <HomeIcon href="#/home" onClick={() => updatedUI()}>
-      <HeaderIcon icon="home" />
-    </HomeIcon>
-  </Columns>
-  <Title>
-    <a href="#/home" onClick={() => updatedUI()}>
-      Trello-Ubeequo 
-      <HeaderIcon icon="feather-alt" />
-    </a>
-  </Title>
-</Content>
-</HeaderBase> */}
